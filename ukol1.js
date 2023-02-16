@@ -14,7 +14,7 @@ http
 // main function for the whole game
 const number_guess_game = () => {
   // generate random whole number between 0-10
-  const rand_number = Math.floor(Math.random() * 10)+1;
+  const rand_number = Math.floor(Math.random() * 10) + 1;
   // variable to determine if user guessed the number
   let number_guessed = false;
   // declare number of guess which will keep track of number of user guesses
@@ -32,15 +32,15 @@ const number_guess_game = () => {
       console.log("Too high, try again.");
     } else if (guess < rand_number) {
       console.log("Too low, try again.");
-    } else if (guess  === rand_number) {
+    } else if (guess === rand_number) {
       number_guessed = true;
       console.log(`Congratulations, you guessed the number. The number was ${rand_number}! Number of attempts: ${num_of_attempts}.`);
       // ask if user wants to play again
       let play_again = prompt('Do you want to play again? (answer "yes" or "no")');
-      if(play_again === "yes"){
+      if (play_again === "yes") {
         number_guess_game();
-      }else{
-        console.log('Thanks for playing, goodbye!');
+      } else {
+        console.log("Thanks for playing, goodbye!");
         exit();
       }
     }
