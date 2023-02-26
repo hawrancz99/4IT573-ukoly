@@ -1,16 +1,7 @@
-import { createServer } from "http";
 import { exit } from "process";
-// get 'prompt-sync' package to simply ask for user input
 import promptSync from 'prompt-sync';
 
-const prompt = promptSync();
-
-// start node server
-createServer(function (req, res) {
-  res.writeHead(200, { "Content-Type": "text/html" });
-  res.end("Hello World!");
-})
-  .listen(8080);
+const prompt = promptSync(); // get 'prompt-sync' package to simply ask for user input
 
 // main function for the whole game
 const number_guess_game = () => {
