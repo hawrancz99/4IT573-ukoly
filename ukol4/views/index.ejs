@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <h1>
+        <%= title %>
+    </h1>
+    <hr>
+    <h3>List of current todos:</h3>
+    <table>
+        <tr>
+            <th>Text</th>
+            <th>Done</th>
+            <th>Detail</th>
+        </tr>
+
+        <% for (const todo of todos) { %>
+            <tr>
+                <td>
+                    <%= todo.text %>
+                </td>
+                <td>
+                    <%= todo.done ? 'yes' : 'no' %>
+                </td>
+                <td>
+                    <a href="/todo/<%= todo.id %>">Detail</a>
+                </td>
+            </tr>
+            <% } %>
+    </table>
+    <br><span>Filters:</span>
+    <br><a href="/?filter=done">Show only done todos</a>
+    <br><a href="/?filter=undone">Show only undone todos</a>
+    <br><a href="/?filter=latest">Show latest todos</a>
+    <br><a href="/?filter=oldest">Show oldest todos</a>
+    <br><br><a href="/">Remove filters</a>
+    <hr>
+    <h3>Add a new Todo:</h3>
+    <form action="/add" method="post">
+        <label for="text">Name:</label>
+        <input type="text" name="text" />
+        <label for="priority">Priority:</label>
+        <select name="priority" id="priority">
+            <option value="3">Very high</option>
+            <option value="2">High</option>
+            <option value="1">Low</option>
+        </select>
+        <label for="deadline">Deadline:</label>
+        <input type="date" id="deadline" name="deadline">
+        <button type="submit">Add</button>
+    </form>
+</body>
+
+</html>
