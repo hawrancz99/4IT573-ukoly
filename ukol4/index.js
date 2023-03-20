@@ -12,27 +12,30 @@ app.use(express.urlencoded({ extended: true }))
 
 // render home page
 app.get('/', async (req, res) => {
-  const todos = await db('todos').select('*')
-  let filteredTodos = [];
+  let todos = [];
   if (req.query.filter) {
     switch (req.query.filter) {
       case 'undone':
-        filteredTodos = todos.filter(todo => !todo.done)
+        todos = await db('todos').select('*').where('done', 0)
         break;
       case 'done':
-        filteredTodos = todos.filter(todo => todo.done)
+        todos = await db('todos').select('*').where('done', 1)
         break;
       case 'latest':
+        todos = await db('todos').select('*')
         todos.sort((a, b) => b.id - a.id)
         break;
       case 'oldest':
+        todos = await db('todos').select('*')
         todos.sort((a, b) => a.id - b.id)
         break;
     }
+  } else {
+    todos = await db('todos').select('*')
   }
   res.render('index', {
     title: 'ToDos!',
-    todos: filteredTodos.length ? filteredTodos : todos,
+    todos: todos,
   })
 })
 
