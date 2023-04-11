@@ -45,13 +45,13 @@
     <script>
         const ws = new WebSocket('ws://localhost:3000')
         ws.addEventListener('message', (message) => {
-          const json = JSON.parse(message.data)
-      
-          if (json.type === 'todos') {
-            document.getElementById('todos').innerHTML = json.html
-          }
+            const json = JSON.parse(message.data)
+
+            if (json.type === 'todos') {
+                document.getElementById('todos').innerHTML = json.html
+            }
         })
-      </script>
+    </script>
 </body>
 
 </html>

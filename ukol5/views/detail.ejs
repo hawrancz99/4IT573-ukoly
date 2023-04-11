@@ -14,30 +14,24 @@
     <div id="todo-detail">
         <%- include('_todo-detail') %>
     </div>
-    <form action="/update-name/<%=todo.id %>" method="post">
+    <form action="/update-name/<%=todo.id %>" method="post" id="change-name-form">
         <label for="name">Change todo name:</label>
         <input type="text" name="text" />
         <button type="submit">OK</button>
     </form>
+
     <script>
         const ws = new WebSocket(`ws://localhost:3000`)
-        const todoId = parseInt('<%= todo.id %>')
-
         ws.addEventListener('message', (message) => {
             const json = JSON.parse(message.data)
-            if (json.type === 'todo-detail' && json.todoId === todoId) {
+            if (json.type === 'todo-detail' && json.todoId === Number('<%= todo.id %>')) {
                 document.getElementById('todo-detail').innerHTML = json.html
-            } else if (json.type === 'todo-deleted' && json.todoId === todoId) {
+            } else if (json.type === 'todo-deleted' && json.todoId === Number('<%= todo.id %>')) {
                 if (json.deletedFromDetail) {
-                    /* TO-DO: when both are viewing detail and one of them deletes, 
-                    only the intiator should get redirected to '/', others to '/todo-deleted'*/
-                    
-                    //if connection is initiator
-                    window.location.replace('/')
-                    // if connection is not initiator
-                    //window.location.replace('/todo-deleted')
+                    window.location.replace('/') // redirect to home page
                 } else {
-                    window.location.replace('/todo-deleted')
+                    document.getElementById('todo-detail').innerHTML = json.html // show user that todo was deleted
+                    document.getElementById('change-name-form').style.display = 'none'
                 }
             }
         })
