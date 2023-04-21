@@ -5,7 +5,6 @@ import { getAllTodos, getTodo } from "./db.js";
 /** @type {Set<WebSocket>} */
 const connections = new Set();
 
-// src/websockets.js
 export const createWebSocketServer = (server) => {
   const wss = new WebSocketServer({ server });
   wss.on("connection", (ws) => {
@@ -33,8 +32,8 @@ export const sendTodosToAllConnections = async (userId) => {
   }
 };
 
-export const sendTodoDetailToAllConnections = async (userId,id) => {
-  const todo = await getTodo(userId,id);
+export const sendTodoDetailToAllConnections = async (userId, id) => {
+  const todo = await getTodo(userId, id);
   const html = await ejs.renderFile("views/_todo-detail.ejs", {
     todo,
   });

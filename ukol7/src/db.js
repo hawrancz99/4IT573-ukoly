@@ -1,4 +1,3 @@
-// src/db.js
 import knex from 'knex'
 import knexfile from '../knexfile.js'
 import crypto from 'crypto'
@@ -8,14 +7,14 @@ const db = knex(knexfile[process.env.NODE_ENV || 'development'])
 export default db
 
 export const getAllTodos = async (userId) => {
-    return await db('todos').select('*').where('user_id',userId)
+    return await db('todos').select('*').where('user_id', userId)
 }
 
 export const getAllTodosByStatus = async (userId, done) => {
-    return await db('todos').select('*').where('user_id',userId).andWhere('done', done)
+    return await db('todos').select('*').where('user_id', userId).andWhere('done', done)
 }
-export const getTodo = async (userId,id) => {
-    return await db('todos').select('*').where('user_id',userId).andWhere('id', id).first()
+export const getTodo = async (userId, id) => {
+    return await db('todos').select('*').where('user_id', userId).andWhere('id', id).first()
 }
 
 export const updateTodoStatus = async (userId, todo) => {
@@ -26,11 +25,11 @@ export const updateTodoName = async (userId, newText, id) => {
     return await db('todos').update({ text: newText }).where('id', id).andWhere('user_id', userId)
 }
 
-export const deleteTodo = async (userId,id) => {
-    return await db('todos').delete().where('id', id).andWhere('user_id',userId)
+export const deleteTodo = async (userId, id) => {
+    return await db('todos').delete().where('id', id).andWhere('user_id', userId)
 }
 
-export const addTodo = async (text, priority, deadline,userId) => {
+export const addTodo = async (text, priority, deadline, userId) => {
     return await db('todos').insert({ text, priority, deadline, user_id: userId })
 }
 
